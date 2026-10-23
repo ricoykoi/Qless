@@ -1,23 +1,34 @@
 import { AVATAR_URL, STUDENT } from '../../data/dashboard'
 
-export default function TopBar() {
+export default function TopBar({ mobileMenuOpen, onMenuClick }) {
   return (
-    <header className="fixed left-72 right-0 top-0 z-40 flex h-16 items-center justify-between bg-surface/90 px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] backdrop-blur-xl">
+    <header className="fixed left-0 right-0 top-0 z-30 flex h-16 items-center justify-between gap-2 bg-surface/90 px-3 shadow-[0_1px_8px_rgba(0,0,0,0.04)] backdrop-blur-xl sm:px-space-lg lg:left-72">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-space-sm text-on-surface-variant">
-        <span className="material-symbols-outlined text-sm" aria-hidden="true">
+      <div className="flex min-w-0 items-center gap-space-sm text-on-surface-variant">
+        <button
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded={mobileMenuOpen}
+          onClick={onMenuClick}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-primary hover:bg-surface-container lg:hidden"
+        >
+          <span className="material-symbols-outlined" aria-hidden="true">
+            menu
+          </span>
+        </button>
+        <span className="material-symbols-outlined hidden text-sm sm:inline" aria-hidden="true">
           home
         </span>
-        <span className="text-xs">/</span>
-        <span className="font-label-md text-label-md font-semibold text-primary">
+        <span className="hidden text-xs sm:inline">/</span>
+        <span className="truncate font-label-md text-label-md font-semibold text-primary">
           University Portal
         </span>
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-space-md">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-space-md">
         {/* Search */}
-        <label className="relative flex w-72 items-center">
+        <label className="relative hidden w-48 items-center md:flex lg:w-72">
           <span className="pointer-events-none absolute left-3 text-base text-on-surface-variant material-symbols-outlined" aria-hidden="true">
             search
           </span>
@@ -44,7 +55,7 @@ export default function TopBar() {
         {/* Quick links */}
         <button
           type="button"
-          className="flex items-center gap-1.5 rounded-lg bg-surface-container-lowest px-space-sm py-1.5 font-label-md text-label-md text-on-surface-variant shadow-[0_1px_3px_0_rgba(11,37,69,0.04)] transition-colors hover:bg-surface-container-high hover:text-on-surface"
+          className="hidden items-center gap-1.5 rounded-lg bg-surface-container-lowest px-space-sm py-1.5 font-label-md text-label-md text-on-surface-variant shadow-[0_1px_3px_0_rgba(11,37,69,0.04)] transition-colors hover:bg-surface-container-high hover:text-on-surface xl:flex"
         >
           <span>USPF Quick Links</span>
           <span className="material-symbols-outlined text-sm" aria-hidden="true">
@@ -52,11 +63,11 @@ export default function TopBar() {
           </span>
         </button>
 
-        <div className="h-6 w-px bg-surface-container" />
+        <div className="hidden h-6 w-px bg-surface-container sm:block" />
 
         {/* User */}
-        <div className="flex items-center gap-space-sm pl-space-xs">
-          <div className="flex flex-col text-right">
+        <div className="flex items-center gap-space-sm sm:pl-space-xs">
+          <div className="hidden flex-col text-right sm:flex">
             <span className="font-label-md text-label-md font-semibold leading-tight text-primary">
               {STUDENT.name}
             </span>

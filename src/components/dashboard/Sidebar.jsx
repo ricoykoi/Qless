@@ -2,14 +2,20 @@ import { LOGO_URL, NAV_ITEMS, NAV_FOOTER_ITEMS } from '../../data/dashboard'
 
 export default function Sidebar({
   activePath = 'dashboard',
+  mobileOpen = false,
+  onClose,
   onNavigate,
   onLogout,
 }) {
   return (
-    <aside className="fixed left-0 top-0 z-50 flex h-screen w-72 flex-col justify-between bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <aside
+      className={`fixed inset-y-0 left-0 z-50 flex h-screen w-72 flex-col justify-between overflow-y-auto bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-transform duration-200 lg:translate-x-0 ${
+        mobileOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
+    >
       <div className="flex flex-col">
         {/* Brand */}
-        <div className="flex items-center gap-space-sm p-space-lg">
+        <div className="flex items-center justify-between gap-space-sm p-space-lg">
           <img
             alt="QLess USPF Logo"
             className="h-8 w-auto object-contain"
@@ -23,6 +29,16 @@ export default function Sidebar({
               Student &amp; Alumni Services
             </span>
           </div>
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            onClick={onClose}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container lg:hidden"
+          >
+            <span className="material-symbols-outlined" aria-hidden="true">
+              close
+            </span>
+          </button>
         </div>
 
         {/* Nav */}
@@ -32,7 +48,10 @@ export default function Sidebar({
               key={item.path}
               item={item}
               active={item.path === activePath}
-              onClick={() => onNavigate?.(item.path)}
+              onClick={() => {
+                onNavigate?.(item.path)
+                onClose?.()
+              }}
             />
           ))}
 
